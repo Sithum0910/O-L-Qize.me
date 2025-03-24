@@ -4,11 +4,11 @@ const submitButton = document.getElementById('submit');
 const timerDisplay = document.getElementById('timer');
 const yearSelect = document.getElementById('year-select');
 const startQuizButton = document.getElementById('start-quiz');
-const darkModeToggle = document.getElementById('dark-mode-toggle');
 const progressBar = document.getElementById('progress');
 const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
 const scoreSummary = document.getElementById('score-summary');
+const darkModeToggle = document.getElementById('dark-mode-toggle');
 
 let timeLeft = 3600; // 1 hour in seconds
 let timer;
@@ -29,8 +29,7 @@ const allQuizData = {
       question: "Q2: 2021 ප්‍රශ්න 2",
       options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option B"
-    },
-    // Add more questions for 2021
+    }
   ],
   "2022": [
     {
@@ -42,10 +41,8 @@ const allQuizData = {
       question: "Q2: 2022 ප්‍රශ්න 2",
       options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option B"
-    },
-    // Add more questions for 2022
-  ],
-  // Add data for 2023, 2024, 2025
+    }
+  ]
 };
 
 // Display the current question
@@ -130,8 +127,18 @@ quizContainer.addEventListener('change', (e) => {
   if (e.target.type === 'radio') {
     const questionIndex = currentQuestionIndex;
     const selectedAnswer = e.target.value;
+
+    // Save the selected answer
     saveAnswer(questionIndex, selectedAnswer);
+
+    // Update progress bar
     updateProgressBar();
+
+    // Move to the next question if not the last one
+    if (currentQuestionIndex < quizData.length - 1) {
+      currentQuestionIndex++;
+      showQuestion();
+    }
   }
 });
 
