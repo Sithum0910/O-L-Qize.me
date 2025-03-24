@@ -8,23 +8,25 @@ const darkModeToggle = document.getElementById('dark-mode-toggle');
 const progressBar = document.getElementById('progress');
 const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
+const scoreSummary = document.getElementById('score-summary');
 
 let timeLeft = 3600; // 1 hour in seconds
 let timer;
 let quizData = [];
 let currentQuestionIndex = 0; // Track the current question
+let correctAnswers = 0;
+let incorrectAnswers = 0;
 
 // Sample JSON data for questions (replace with your data)
 const allQuizData = {
   "2021": [
     {
-      question: "Q1: 1.මානව හෘදය අයත් වන්නේ පහත සඳහන් කුමන සංවිධාන මට්ටමටද?",
-      options: ["Option පටක", "Option අවයව", "Option පද්ධති", "Option සෛලය"],
-      answer: "Option පද්ධති"
+      question: "Q1: 2021 ප්‍රශ්න 1",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "Option A"
     },
     {
       question: "Q2: 2021 ප්‍රශ්න 2",
-      image: "images/2021_q2.png",
       options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option B"
     },
@@ -32,14 +34,14 @@ const allQuizData = {
   ],
   "2022": [
     {
-      question: "Q1: 1.මානව හෘදය අයත් වන්නේ පහත සඳහන් කුමන සංවිධාන මට්ටමටද?",
-      options: ["පටක", "අවයව", "පද්ධති", "සෛලය"],
+      question: "Q1: 2022 ප්‍රශ්න 1",
+      options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option A"
     },
     {
-      question: "Q2: LP ගෑස්වල ප්‍රධාන සංඝටක ලෙස අඩංගු හයිඩ් රොකාබන වනුයේ,",
-      options: ["මෙතේන් හා එතේන් ය.", "ප්‍රොපේන් හා බියුටේන්", "බියුටේන් හා පෙන්ටීන් ය.", "ප්‍රොපේන් හා පෙන්ටේන් ය."],
-      answer: "මෙතේන් හා එතේන් ය."
+      question: "Q2: 2022 ප්‍රශ්න 2",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "Option B"
     },
     // Add more questions for 2022
   ],
@@ -52,10 +54,9 @@ function showQuestion() {
   const output = `
     <div class="question">
       <div>${currentQuestion.question}</div>
-      <img src="${currentQuestion.image}" alt="Question Image">
       <div class="options">
         ${currentQuestion.options.map((option, index) => `
-          <label>
+          <label class="${getOptionClass(option, currentQuestion.answer)}">
             <input type="radio" name="question${currentQuestionIndex}" value="${option}" ${isOptionSelected(option) ? 'checked' : ''} ${isQuestionAnswered(currentQuestionIndex) ? 'disabled' : ''}>
             ${option}
           </label>
@@ -68,6 +69,15 @@ function showQuestion() {
   // Update navigation buttons
   previousButton.disabled = currentQuestionIndex === 0;
   nextButton.disabled = currentQuestionIndex === quizData.length - 1;
+}
+
+// Get the class for the option (correct or incorrect)
+function getOptionClass(option, correctAnswer) {
+  const selectedAnswer = localStorage.getItem(`question${currentQuestionIndex}`);
+  if (selectedAnswer === option) {
+    return option === correctAnswer ? 'correct' : 'incorrect';
+  }
+  return '';
 }
 
 // Check if an option is selected
@@ -108,8 +118,11 @@ startQuizButton.addEventListener('click', () => {
   quizData = allQuizData[selectedYear];
   currentQuestionIndex = 0; // Reset to the first question
   localStorage.clear(); // Clear previous answers
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+  timeLeft = 3600; // Reset timer to 1 hour
   showQuestion();
-  startTimer();
+  startTimer(); // Start the timer
 });
 
 // Event listener for option selection
@@ -129,6 +142,44 @@ function updateProgressBar() {
   const progress = (answeredQuestions / totalQuestions) * 100;
   progressBar.style.width = `${progress}%`;
 }
+
+// Timer function
+function startTimer() {
+  timer = setInterval(() => {
+    timeLeft--;
+    const hours = Math.floor(timeLeft / 3600);
+    const minutes = Math.floor((timeLeft % 3600) / 60);
+    const seconds = timeLeft % 60;
+    timerDisplay.innerHTML = `Time Left: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    // If time runs out, stop the timer and show results
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      showResults();
+    }
+  }, 1000);
+}
+
+// Show results
+function showResults() {
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+
+  quizData.forEach((currentQuestion, questionIndex) => {
+    const selectedAnswer = localStorage.getItem(`question${questionIndex}`);
+    if (selectedAnswer === currentQuestion.answer) {
+      correctAnswers++;
+    } else {
+      incorrectAnswers++;
+    }
+  });
+
+  resultsContainer.innerHTML = `You scored ${correctAnswers} out of ${quizData.length}`;
+  scoreSummary.innerHTML = `Correct: ${correctAnswers} | Incorrect: ${incorrectAnswers}`;
+}
+
+// Submit quiz
+submitButton.addEventListener('click', showResults);
 
 // Dark Mode Toggle
 darkModeToggle.addEventListener('click', () => {
