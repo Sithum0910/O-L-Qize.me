@@ -1,11 +1,21 @@
-/* General Styles */
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
+  --dur: 0.3s;
+  font-size: calc(40px + (80 - 40) * (100vw - 320px) / (2560 - 320));
   --background-color: #ffffff;
   --text-color: #333333;
   --container-bg: #f9f9f9;
   --button-bg: #007bff;
   --button-hover-bg: #0056b3;
   --border-color: #e0e0e0;
+  --correct-color: #4caf50; /* Green for correct answers */
+  --incorrect-color: #ff4757; /* Red for incorrect answers */
 }
 
 [data-theme="dark"] {
@@ -15,18 +25,14 @@
   --button-bg: #ff4757;
   --button-hover-bg: #ff6b81;
   --border-color: #444444;
+  --correct-color: #4caf50;
+  --incorrect-color: #ff4757;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
+body, input {
   color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  font: 1em/1.5 sans-serif;
+  background-color: var(--background-color);
 }
 
 .quiz-container {
@@ -37,6 +43,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.5s ease-in-out;
+  position: relative;
 }
 
 @keyframes fadeIn {
@@ -48,6 +55,31 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#dark-mode-toggle:hover {
+  background-color: var(--button-hover-bg);
+  transform: translateY(-2px);
+}
+
+#dark-mode-toggle:active {
+  transform: translateY(0);
 }
 
 /* Header Styles */
@@ -74,7 +106,7 @@ h1 {
   outline: none;
 }
 
-#start-quiz, #submit, #dark-mode-toggle {
+#start-quiz, #submit {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
@@ -88,12 +120,12 @@ h1 {
   margin-bottom: 1rem;
 }
 
-#start-quiz:hover, #submit:hover, #dark-mode-toggle:hover {
+#start-quiz:hover, #submit:hover {
   background-color: var(--button-hover-bg);
   transform: translateY(-2px);
 }
 
-#start-quiz:active, #submit:active, #dark-mode-toggle:active {
+#start-quiz:active, #submit:active {
   transform: translateY(0);
 }
 
@@ -145,13 +177,6 @@ h1 {
   }
 }
 
-.question img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
 .options label {
   display: block;
   margin: 0.75rem 0;
@@ -163,17 +188,69 @@ h1 {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.options label:hover {
-  background-color: var(--background-color);
-  border-color: var(--button-bg);
+.options label.correct {
+  border-color: var(--correct-color);
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.options label.incorrect {
+  border-color: var(--incorrect-color);
+  background-color: rgba(255, 71, 87, 0.1);
 }
 
 .options input[type="radio"] {
   margin-right: 0.5rem;
 }
 
+/* Navigation Buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+#previous, #next {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#previous:hover, #next:hover {
+  background-color: var(--button-hover-bg);
+  transform: translateY(-2px);
+}
+
+#previous:active, #next:active {
+  transform: translateY(0);
+}
+
+#previous:disabled, #next:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
 /* Results Styles */
 #results {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--container-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Score Summary Styles */
+#score-summary {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-color);
