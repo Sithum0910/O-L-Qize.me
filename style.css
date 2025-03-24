@@ -12,6 +12,12 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
 }
 
 .quiz-container {
@@ -22,11 +28,17 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   position: relative;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode .quiz-container {
+  background-color: #2c2c2c;
+  color: #f0f0f0;
 }
 
 h1 {
   font-size: 2rem;
-  color: #333;
+  color: inherit;
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -39,6 +51,10 @@ h1 {
   border-radius: 8px;
   margin-bottom: 1rem;
   transition: border-color 0.3s ease;
+}
+
+body.dark-mode #year-select {
+  border-color: #444444;
 }
 
 #year-select:focus {
@@ -101,6 +117,12 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   animation: slideIn 0.5s ease-in-out;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode .question {
+  background-color: #2c2c2c;
+  color: #f0f0f0;
 }
 
 @keyframes slideIn {
@@ -123,6 +145,11 @@ h1 {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode .options label {
+  background-color: #2c2c2c;
+  border-color: #444444;
 }
 
 .options label.correct {
@@ -174,7 +201,7 @@ h1 {
 #results {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: inherit;
   text-align: center;
   margin-top: 1.5rem;
   padding: 1rem;
@@ -182,12 +209,18 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.5s ease-in-out;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode #results {
+  background-color: #2c2c2c;
+  color: #f0f0f0;
 }
 
 #score-summary {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: inherit;
   text-align: center;
   margin-top: 1.5rem;
   padding: 1rem;
@@ -195,6 +228,12 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.5s ease-in-out;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode #score-summary {
+  background-color: #2c2c2c;
+  color: #f0f0f0;
 }
 
 /* Dark Mode Toggle */
