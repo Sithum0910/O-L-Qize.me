@@ -7,8 +7,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <div class="daynight">
+      <label for="checkbox">
+        <input type="checkbox" id="checkbox">
+        <div class="toggle">
+          <div class="cloud"></div>
+          <div class="star"></div>
+          <div class="sea"></div>
+          <div class="mountains"></div>
+        </div>
+      </label>
+    </div>
+  </div>
   <div class="quiz-container">
-    <button id="dark-mode-toggle">🌙 Dark Mode</button>
     <h1>GCE O/L Science Quiz</h1>
     <select id="year-select">
       <option value="2021">2021</option>
@@ -24,8 +36,8 @@
     <div id="timer">Time Left: 01:00:00</div>
     <div id="quiz"></div>
     <div class="navigation-buttons">
-      <button id="previous">Previous</button>
-      <button id="next">Next</button>
+      <button id="previous">⬅️ Previous</button>
+      <button id="next">Next ➡️</button>
     </div>
     <button id="submit">Submit Quiz</button>
     <div id="results"></div>
