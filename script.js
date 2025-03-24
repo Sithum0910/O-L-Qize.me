@@ -18,10 +18,9 @@ let currentQuestionIndex = 0; // Track the current question
 const allQuizData = {
   "2021": [
     {
-      question: "Q1: 2021 ප්‍රශ්න 1",
-      image: "images/2021_q1.png",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "Option A"
+      question: "Q1: 1.මානව හෘදය අයත් වන්නේ පහත සඳහන් කුමන සංවිධාන මට්ටමටද?",
+      options: ["Option පටක", "Option අවයව", "Option පද්ධති", "Option සෛලය"],
+      answer: "Option පද්ධති"
     },
     {
       question: "Q2: 2021 ප්‍රශ්න 2",
@@ -33,9 +32,8 @@ const allQuizData = {
   ],
   "2022": [
     {
-      question: "Q1: 2022 ප්‍රශ්න 1",
-      image: "images/2022_q1.png",
-      options: ["Option A", "Option B", "Option C", "Option D"],
+      question: "Q1: 1.මානව හෘදය අයත් වන්නේ පහත සඳහන් කුමන සංවිධාන මට්ටමටද?",
+      options: ["පටක", "අවයව", "පද්ධති", "සෛලය"],
       answer: "Option A"
     },
     {
