@@ -8,7 +8,7 @@ const progressBar = document.getElementById('progress');
 const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
 const scoreSummary = document.getElementById('score-summary');
-const darkModeToggle = document.getElementById('dark-mode-toggle');
+const checkbox = document.getElementById('checkbox');
 
 let timeLeft = 3600; // 1 hour in seconds
 let timer;
@@ -29,7 +29,8 @@ const allQuizData = {
       question: "Q2: 2021 ප්‍රශ්න 2",
       options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option B"
-    }
+    },
+    // Add more questions for 2021
   ],
   "2022": [
     {
@@ -41,8 +42,10 @@ const allQuizData = {
       question: "Q2: 2022 ප්‍රශ්න 2",
       options: ["Option A", "Option B", "Option C", "Option D"],
       answer: "Option B"
-    }
-  ]
+    },
+    // Add more questions for 2022
+  ],
+  // Add data for 2023, 2024, 2025
 };
 
 // Display the current question
@@ -66,6 +69,14 @@ function showQuestion() {
   // Update navigation buttons
   previousButton.disabled = currentQuestionIndex === 0;
   nextButton.disabled = currentQuestionIndex === quizData.length - 1;
+}
+
+// Automatically move to the next question after answering
+function autoNextQuestion() {
+  if (currentQuestionIndex < quizData.length - 1) {
+    currentQuestionIndex++;
+    showQuestion();
+  }
 }
 
 // Get the class for the option (correct or incorrect)
@@ -127,18 +138,9 @@ quizContainer.addEventListener('change', (e) => {
   if (e.target.type === 'radio') {
     const questionIndex = currentQuestionIndex;
     const selectedAnswer = e.target.value;
-
-    // Save the selected answer
     saveAnswer(questionIndex, selectedAnswer);
-
-    // Update progress bar
     updateProgressBar();
-
-    // Move to the next question if not the last one
-    if (currentQuestionIndex < quizData.length - 1) {
-      currentQuestionIndex++;
-      showQuestion();
-    }
+    autoNextQuestion(); // Automatically move to the next question
   }
 });
 
@@ -189,15 +191,6 @@ function showResults() {
 submitButton.addEventListener('click', showResults);
 
 // Dark Mode Toggle
-darkModeToggle.addEventListener('click', () => {
-  const body = document.body;
-  const currentTheme = body.getAttribute('data-theme');
-
-  if (currentTheme === 'dark') {
-    body.setAttribute('data-theme', 'light');
-    darkModeToggle.textContent = '🌙 Dark Mode';
-  } else {
-    body.setAttribute('data-theme', 'dark');
-    darkModeToggle.textContent = '☀️ Light Mode';
-  }
+checkbox.addEventListener('change', () => {
+  document.body.classList.toggle('dark-mode');
 });
