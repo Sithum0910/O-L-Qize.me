@@ -37,10 +37,10 @@ const allQuizData = {
       answer: "Option A"
     },
     {
-      question: "Q2: 2022 ප්‍රශ්න 2",
+      question: "Q2: LP ගෑස්වල ප්‍රධාන සංඝටක ලෙස අඩංගු හයිඩ් රොකාබන වනුයේ,",
       image: "images/2022_q2.png",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "Option B"
+      options: ["Option මෙතේන් හා එතේන් ය.", "Option ප්‍රොපේන් හා බියුටේන්", "Option බියුටේන් හා පෙන්ටීන් ය.", "Option ප්‍රොපේන් හා පෙන්ටේන් ය."],
+      answer: "Option මෙතේන් හා එතේන් ය."
     },
     // Add more questions for 2022
   ],
